@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "in $0 script"
+# Debug output
+echo "pam_user:${PAM_USER},  pam_ruser:${PAM_RUSER},  pam_rhost:${PAM_RHOST},  pam_service:${PAM_SERVICE},  pam_authok:${PAM_AUTHTOK}, pam_oldauthok:${PAM_OLDAUTHTOK},  pam_tty:${PAM_TTY},  and pam_type:${PAM_TYPE}"
+LUKS_KEY_CHANGER=/usr/bin/luks-key-changer
+
+# update the luks encryption pass phrase
+if [ -x "${LUKS_KEY_CHANGER}" ]
+then
+    ${LUKS_KEY_CHANGER} -o "${PAM_OLDAUTHTOK}" -n "${PAM_AUTHTOK}"
+fi

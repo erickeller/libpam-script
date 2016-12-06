@@ -1,0 +1,3 @@
+* invoke: luks script
+* find out how to change the gnome keyring
+* remove echo output otherwise the password is in plain text in /var/log/auth.log

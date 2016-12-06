@@ -1,0 +1,15 @@
+---
+- name: install libpam-script package
+  apt: name=libpam-script state=present update_cache=yes
+
+- name: apply pam configuration workaround
+  copy: src=pam_script dest=/usr/share/pam-configs/pam_script
+
+- name: reconfigure pam common files
+  command: pam-auth-update --package
+
+- name: configure pam_script_passwd
+  copy: src=pam_script_passwd dest=/usr/share/libpam-script/pam_script_passwd mode=0755
+
+- name: enable pam_script for common-password
+  lineinfile: dest=/etc/pam.d/common-password line='password  sufficient      pam_script.so'
